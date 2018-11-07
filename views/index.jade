@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .ui.basic.center.aligned.segment
+    form(method='POST' action='/new_term')
+      div.form-group
+        .ui.action.input.fluid
+          input#new_term(type='text', placeholder='New term', name='new_term')
+          button.ui.button(type='submit') Add &nbsp;
+            i.add.icon
+  .ui.basic.center.aligned.segment
+    ul.terms
+      each term in terms
+        li
+          span.ui.inverted.header
+            = term
