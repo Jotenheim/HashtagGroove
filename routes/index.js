@@ -42,8 +42,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { terms: terms });
 });
 
-router.post('/new_term', function(req, res, next) {
-  updateTerms(req.body.new_term);
+router.post('/new_term', async function(req, res, next) {
+  await updateTerms(req.body.new_term);
   res.redirect('/');
 })
 
