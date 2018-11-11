@@ -58,7 +58,7 @@ router.post('/new_term', async function(req, res, next) {
               res.json(err);
             } else {
               res.redirect('/');
-              delete terms[req.body.new_term];
+              if (terms[req.body.new_term]) { delete terms[req.body.new_term] };
             }
           });
         } else {
