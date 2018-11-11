@@ -23,7 +23,7 @@ stream.on('tweet', async function (tweet) {
   for (var term in terms) {
     if (tweet.text.includes(term)) {
       const songInfo = await Spotify.findNewTrack(term, mood);
-      Spotify.addTrackToPlaylist(term, songInfo);
+      Spotify.addTrackToPlaylist(terms[term].playlistID, songInfo);
     }
   }
 });
@@ -33,7 +33,9 @@ const updateTerms = async function (term) {
     delete terms[term];
     fs.writeFileSync('./bin/terms.json', JSON.stringify(terms), 'utf-8');
   } else {
-    await Spotify.addNewPlaylist(term);
+    const term_info = await Spotify.addNewPlaylist(term);
+    terms[term_info.term] = term_info;
+    fs.writeFileSync('./bin/terms.json', JSON.stringify(terms), 'utf-8');
   }
 }
 
